@@ -8,11 +8,12 @@ const ExtractJwt = require('passport-jwt').ExtractJwt
 const UserModel = require('./models/user')
 const morgan = require('morgan')
 const flash = require('connect-flash')
+require('dotenv').config()
 
 passport.use(new JwtStrategy(
     {
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-        secretOrKey: 'testnaoseioqueeisso'
+        secretOrKey: process.env.JWT_SECRET
     },
     function (jwt_payload, done) {
         UserModel.findOne(

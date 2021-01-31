@@ -20,7 +20,7 @@ const Authentication = {
         UserModel.findOne({ where: { username: req.body.username } }).then((user) => {
             if (user.isValidPassword(req.body.password)) {
                 var payload = { id: user.id };
-                var token = jwt.sign(payload, 'testnaoseioqueeisso');
+                var token = jwt.sign(payload, process.env.JWT_SECRET);
                 res.json({ message: "ok", token: token });
             } else {
                 res.status(401).json({ message: "invalid credentials" });
